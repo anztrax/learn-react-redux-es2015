@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
 
+
 class CoursesPage extends React.Component{
   constructor(props, context){
     super(props, context);
@@ -20,7 +21,8 @@ class CoursesPage extends React.Component{
   };
 
   onClickSave = (event) => {
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    // this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
   };
 
   courseRow = (course, index) => {
@@ -43,7 +45,7 @@ class CoursesPage extends React.Component{
 }
 CoursesPage.propTypes = {
   courses : PropTypes.array.isRequired,
-  dispatch : PropTypes.func.isRequired
+  createCourse : PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>{
@@ -53,8 +55,13 @@ const mapStateToProps = (state, ownProps) =>{
 };
 
 //NOTE : klo mapDispatchToProps nggak di inject maka props.dispatch yg di inject
-const mapDispatchToProps = () => {
-
+/*
+  this method is determine which action
+ */
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createCourse : (course) => dispatch(courseActions.createCourse(course))
+  };
 };
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
