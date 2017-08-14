@@ -5,7 +5,7 @@ export default class App extends React.Component{
   static get propTypes(){
     return {
       children : PropTypes.object.isRequired
-    }
+    };
   }
 
   render(){
@@ -14,6 +14,6 @@ export default class App extends React.Component{
         <Header />
         {this.props.children}
       </div>
-    )
+    );
   }
 }
