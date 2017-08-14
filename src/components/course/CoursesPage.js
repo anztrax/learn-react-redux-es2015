@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
 
 
@@ -22,7 +23,7 @@ class CoursesPage extends React.Component{
 
   onClickSave = (event) => {
     // this.props.dispatch(courseActions.createCourse(this.state.course));
-    this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
   };
 
   courseRow = (course, index) => {
@@ -45,7 +46,7 @@ class CoursesPage extends React.Component{
 }
 CoursesPage.propTypes = {
   courses : PropTypes.array.isRequired,
-  createCourse : PropTypes.func.isRequired
+  actions : PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) =>{
@@ -60,7 +61,9 @@ const mapStateToProps = (state, ownProps) =>{
  */
 const mapDispatchToProps = (dispatch) => {
   return {
-    createCourse : (course) => dispatch(courseActions.createCourse(course))
+    // createCourse : (course) => dispatch(courseActions.createCourse(course))
+    actions : bindActionCreators(courseActions, dispatch)    //so the bindActionCreators bind all actions
+    //bisa juga kek gini : bindActionCreators(courseActions.createCourse, dispatch);
   };
 };
 
